@@ -66,6 +66,30 @@ public class ResizeListener extends MouseAdapter {
 				resize(pos, (int) (now.getX() - lastPos.getX()), (int) (now.getY() - lastPos.getY()));
 			lastPos = e.getLocationOnScreen();
 			e.consume();
+			
+			CustomFrame frame = theme.getFrame();
+			int cursor = Cursor.DEFAULT_CURSOR;
+			if (pos != null) {
+				switch (pos) {
+				case BOTTOM:
+					cursor = Cursor.N_RESIZE_CURSOR;
+					break;
+				case BOTTOM_LEFT:
+					cursor = Cursor.NE_RESIZE_CURSOR;
+					break;
+				case BOTTOM_RIGHT:
+					cursor = Cursor.NW_RESIZE_CURSOR;
+					break;
+				case LEFT:
+					cursor = Cursor.E_RESIZE_CURSOR;
+					break;
+				case RIGHT:
+					cursor = Cursor.E_RESIZE_CURSOR;
+					break;
+
+				}
+			}
+			frame.setCursor(Cursor.getPredefinedCursor(cursor));
 		}
 	}
 
@@ -76,6 +100,7 @@ public class ResizeListener extends MouseAdapter {
 		if (lastPos != null) {
 			lastPos = null;
 			e.consume();
+			theme.getFrame().repaint();
 		}
 	}
 
@@ -84,6 +109,8 @@ public class ResizeListener extends MouseAdapter {
 	 */
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		if(!theme.currentlyResizeable())
+			return;
 		GrabPosition pos = getGrabPosition(e.getLocationOnScreen(), theme.getFrame().getBounds(),
 				theme.getResizeRadius());
 		CustomFrame frame = theme.getFrame();
