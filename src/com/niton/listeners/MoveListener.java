@@ -14,7 +14,7 @@ import java.awt.event.MouseEvent;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.swing.JFrame;
 
-import com.niton.themes.ResizeableTheme;
+import com.niton.themes.base.ResizeableTheme;
 
 /**
  * This is the MoveListener Class
@@ -48,7 +48,6 @@ public class MoveListener extends MouseAdapter {
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
-		System.out.println("I bimz click");
 		Point relative = e.getPoint();
 		if(
 				theme.getDragingArea().contains(relative) &&
@@ -104,11 +103,11 @@ public class MoveListener extends MouseAdapter {
 		
 		Point topR = allowed.getLocation();
 		topR.translate((int) allowed.getWidth(), 0);
-		if(bot.distance(now)<5) 
+		if(topR.distance(now)<5) 
 			position = GrabPosition.TOP_RIGHT;
 		
 		topR.translate(0, (int) allowed.getHeight());
-		if(bot.distance(now)<5) 
+		if(topR.distance(now)<5) 
 			position = GrabPosition.BOTTOM_RIGHT;
 		
 		if(position == GrabPosition.BOTTOM) {
