@@ -24,23 +24,23 @@ public class Test {
 				g.setColor(Color.GRAY);
 				g.fillRect(0, 0, getFrame().getWidth(), getFrame().getHeight());
 				g.setColor(Color.green);
-				g.fillRect(getFrame().getWidth()-60, 0, 20, 20);
+				g.fillRect(getFrame().getWidth()-65, 0, 20, 20);
 				g.setColor(Color.blue);
-				g.fillRect(getFrame().getWidth()-40, 0, 20, 20);
+				g.fillRect(getFrame().getWidth()-45, 0, 20, 20);
 				g.setColor(Color.red);
-				g.fillRect(getFrame().getWidth()-20, 0, 20, 20);
+				g.fillRect(getFrame().getWidth()-25, 0, 20, 20);
 				g.setColor(Color.DARK_GRAY);
 				g.fillRect(5, 20, getFrame().getWidth()-10, getFrame().getHeight()-20);
 			}
 			
 			@Override
 			public Rectangle getMinimizeArea() {
-				return new Rectangle(getFrame().getWidth()-60, 0, 20, 20);
+				return new Rectangle(getFrame().getWidth()-65, 0, 20, 20);
 			}
 			
 			@Override
 			public Rectangle getMaximizeArea() {
-				return new Rectangle(getFrame().getWidth()-40, 0, 20, 20);
+				return new Rectangle(getFrame().getWidth()-45, 0, 20, 20);
 			}
 			
 			@Override
@@ -50,7 +50,7 @@ public class Test {
 			
 			@Override
 			public Rectangle getCloseArea() {
-				return new Rectangle(getFrame().getWidth()-20, 0, 20, 20);
+				return new Rectangle(getFrame().getWidth()-25, 0, 20, 20);
 			}
 			
 			@Override
