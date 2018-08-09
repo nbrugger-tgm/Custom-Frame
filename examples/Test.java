@@ -17,7 +17,6 @@ public class Test {
 	}
 	
 	public static void testMovingAndResizing() {
-		CustomFrame frame = new CustomFrame();
 		ResizeableTheme theme = new ResizeableTheme() {
 			
 			@Override
@@ -30,6 +29,8 @@ public class Test {
 				g.fillRect(getFrame().getWidth()-40, 0, 20, 20);
 				g.setColor(Color.red);
 				g.fillRect(getFrame().getWidth()-20, 0, 20, 20);
+				g.setColor(Color.DARK_GRAY);
+				g.fillRect(5, 20, getFrame().getWidth()-10, getFrame().getHeight()-20);
 			}
 			
 			@Override
@@ -67,6 +68,9 @@ public class Test {
 				return true;
 			}
 		};
+		
+		CustomFrame frame = new CustomFrame(theme);
+		frame.maximize();
 		frame.setTheme(theme);
 		frame.setVisible(true);
 	}
