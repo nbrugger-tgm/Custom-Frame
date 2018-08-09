@@ -26,7 +26,10 @@ public class ActionButtonListener extends MouseAdapter {
 		if(t.getCloseArea().contains(e.getPoint())) {
 			frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 		}else if(t.getMaximizeArea().contains(e.getPoint())) {
+			if(!frame.isMaximized())
 				frame.maximize();
+			else
+				frame.undoResize();
 		}else if(t.getMinimizeArea().contains(e.getPoint())) {
 			frame.iconify();
 		}
