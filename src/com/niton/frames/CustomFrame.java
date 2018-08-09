@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import javax.swing.JFrame;
 import javax.swing.event.MouseInputListener;
 
+import com.niton.listeners.ActionButtonListener;
 import com.niton.themes.Theme;
 
 /**
@@ -38,6 +39,7 @@ public class CustomFrame extends JFrame {
 		setUndecorated(true);
 		theme.addListeners();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		addMouseListener(new ActionButtonListener(this));
 	}
 //	
 //	/**
