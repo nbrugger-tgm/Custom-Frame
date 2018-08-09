@@ -12,9 +12,11 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 
 import javax.swing.JFrame;
+import javax.swing.JRootPane;
 import javax.swing.event.MouseInputListener;
 
 import com.niton.listeners.ActionButtonListener;
+import com.niton.listeners.ContentPaneFitterListener;
 import com.niton.themes.base.ResizeableTheme;
 import com.niton.themes.base.Theme;
 
@@ -28,7 +30,6 @@ public class CustomFrame extends JFrame {
 	private Rectangle oldSize;
 	private static final long serialVersionUID = 1117999892970902406L;
 	private Theme theme;
-
 	
 	/**
 	 * Creates an Instance of CustomFrame.java
@@ -43,6 +44,8 @@ public class CustomFrame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		addMouseListener(new ActionButtonListener(this));
 		setMinimumSize(new Dimension((int) ((int)(theme.getMaximizeArea().getWidth()+theme.getCloseArea().getWidth()+theme.getMinimizeArea().getWidth())*2.5), (int)(theme instanceof ResizeableTheme ? ((ResizeableTheme)theme).getDragingArea().getHeight()*2 : 40)));
+		setLayout(null);
+		addComponentListener(new ContentPaneFitterListener(this));
 	}
 //	
 //	/**
@@ -185,5 +188,9 @@ public class CustomFrame extends JFrame {
 		addMouseListener(adapter);
 		addMouseMotionListener(adapter);
 		addMouseWheelListener(adapter);
+	}
+	public void fitContentPane() {
+		getContentPane().setBounds(theme.getContentSize());
+		repaint();
 	}
 }
