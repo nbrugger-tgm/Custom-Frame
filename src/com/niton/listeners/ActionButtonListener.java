@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 
 import com.niton.frames.CustomFrame;
-import com.niton.themes.Theme;
+import com.niton.themes.base.Theme;
 
 import sun.text.normalizer.CharTrie.FriendAgent;
 

@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.event.MouseInputListener;
 
 import com.niton.listeners.ActionButtonListener;
-import com.niton.themes.Theme;
+import com.niton.themes.base.Theme;
 
 /**
  * This is the CustomFrame Class

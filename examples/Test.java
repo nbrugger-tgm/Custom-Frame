@@ -2,7 +2,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import com.niton.frames.CustomFrame;
-import com.niton.themes.ResizeableTheme;
+import com.niton.themes.base.ResizeableTheme;
 
 import java.awt.Color;
 
