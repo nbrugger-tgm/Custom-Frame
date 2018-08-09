@@ -1,4 +1,4 @@
-package com.niton.themes;
+package com.niton.themes.base;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;

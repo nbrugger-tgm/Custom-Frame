@@ -1,4 +1,4 @@
-package com.niton.themes;
+package com.niton.themes.base;
 
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -12,7 +12,6 @@ import com.niton.listeners.ResizeListener;
  * @version 2018-08-09
  */
 public abstract class ResizeableTheme extends Theme {
-	private Point grabPosition;
 	
 	/**
 	 * If you overwrite this method it is very important to call the super method!<br>
@@ -20,25 +19,12 @@ public abstract class ResizeableTheme extends Theme {
 	 * <pre>
 	 * super.addListeners();
 	 * </pre>
-	 * @see com.niton.themes.Theme#addListeners()
+	 * @see com.niton.themes.base.Theme#addListeners()
 	 */
 	@Override
 	public void addListeners() {
 		frame.addMouseAdapter(new ResizeListener(this));
 		frame.addMouseAdapter(new MoveListener(this));
-	}
-	/**
-	 * @return the grabPosition
-	 */
-	public Point getGrabPosition() {
-		return grabPosition;
-	}
-
-	/**
-	 * @param grabPosition the grabPosition to set
-	 */
-	public void setGrabPosition(Point grabPosition) {
-		this.grabPosition = grabPosition;
 	}
 	
 	/**
