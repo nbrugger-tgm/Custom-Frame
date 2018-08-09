@@ -1,5 +1,9 @@
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.Rectangle;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import com.niton.frames.CustomFrame;
 import com.niton.themes.FlatDarkTheme;
@@ -15,9 +19,26 @@ import java.awt.Color;
 public class Test {
 	public static void main(String[] args) {
 //		testMovingAndResizing();
-		testFlatTheme();
+//		testFlatTheme();
+		testContent();
 	}
 	
+	/**
+	 * <b>Description :</b><br>
+	 * 
+	 * @author Nils Brugger
+	 * @version 2018-08-09
+	 */
+	private static void testContent() {
+		CustomFrame frame = new CustomFrame(new FlatDarkTheme());
+		frame.setSize(300,300);
+		frame.setVisible(true);
+		JLabel panel = new JLabel("I Bimz");
+		panel.setBackground(Color.BLACK);
+		frame.getContentPane().setLayout(new GridLayout());
+		frame.getContentPane().add(panel);
+	}
+
 	/**
 	 * <b>Description :</b><br>
 	 * 
