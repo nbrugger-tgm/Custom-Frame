@@ -23,8 +23,8 @@ public abstract class ResizeableTheme extends Theme {
 	 */
 	@Override
 	public void addListeners() {
-		frame.addMouseAdapter(new ResizeListener(this));
 		frame.addMouseAdapter(new MoveListener(this));
+		frame.addMouseAdapter(new ResizeListener(this));
 	}
 	
 	/**
