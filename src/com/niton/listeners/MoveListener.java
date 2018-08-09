@@ -61,6 +61,7 @@ public class MoveListener extends MouseAdapter {
 			Point absolute = e.getLocationOnScreen();
 			reresize = theme.getFrame().isMaximized();
 			lastPos = absolute;
+			e.consume();
 		} else {
 			lastPos = null;
 		}
@@ -83,6 +84,7 @@ public class MoveListener extends MouseAdapter {
 			borderCheck(now, false);
 			lastPos = now;
 			bevoreDrag = theme.getFrame().getSize();
+			e.consume();
 		}
 	}
 
@@ -248,6 +250,8 @@ public class MoveListener extends MouseAdapter {
 		if (e.getButton() != MouseEvent.BUTTON1)
 			return;
 		borderCheck(e.getLocationOnScreen(), true);
+		if(lastPos != null)
+			e.consume();
 		lastPos = null;
 	}
 }
