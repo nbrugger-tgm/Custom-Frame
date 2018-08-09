@@ -167,13 +167,6 @@ public class CustomFrame extends JFrame {
 		effectiveScreenArea.width = bounds.width - screenInsets.left - screenInsets.right;
 		return effectiveScreenArea;
 	}
-	
-	/**
-	 * @param theme the theme to set
-	 */
-	public void setTheme(Theme theme) {
-		this.theme = theme;
-	}
 	/**
 	 * @return the theme
 	 */
