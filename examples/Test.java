@@ -2,6 +2,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import com.niton.frames.CustomFrame;
+import com.niton.themes.FlatDarkTheme;
 import com.niton.themes.base.ResizeableTheme;
 
 import java.awt.Color;
@@ -13,9 +14,22 @@ import java.awt.Color;
  */
 public class Test {
 	public static void main(String[] args) {
-		testMovingAndResizing();
+//		testMovingAndResizing();
+		testFlatTheme();
 	}
 	
+	/**
+	 * <b>Description :</b><br>
+	 * 
+	 * @author Nils Brugger
+	 * @version 2018-08-09
+	 */
+	private static void testFlatTheme() {
+		CustomFrame frame = new CustomFrame(new FlatDarkTheme());
+		frame.setSize(300,300);
+		frame.setVisible(true);
+	}
+
 	public static void testMovingAndResizing() {
 		ResizeableTheme theme = new ResizeableTheme() {
 			
@@ -71,7 +85,6 @@ public class Test {
 		
 		CustomFrame frame = new CustomFrame(theme);
 		frame.maximize();
-		frame.setTheme(theme);
 		frame.setVisible(true);
 	}
 }
