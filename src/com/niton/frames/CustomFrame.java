@@ -1,5 +1,6 @@
 package com.niton.frames;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
@@ -14,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.event.MouseInputListener;
 
 import com.niton.listeners.ActionButtonListener;
+import com.niton.themes.base.ResizeableTheme;
 import com.niton.themes.base.Theme;
 
 /**
@@ -40,6 +42,7 @@ public class CustomFrame extends JFrame {
 		theme.addListeners();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		addMouseListener(new ActionButtonListener(this));
+		setMinimumSize(new Dimension((int) ((int)(theme.getMaximizeArea().getWidth()+theme.getCloseArea().getWidth()+theme.getMinimizeArea().getWidth())*2.5), (int)(theme instanceof ResizeableTheme ? ((ResizeableTheme)theme).getDragingArea().getHeight()*2 : 40)));
 	}
 //	
 //	/**

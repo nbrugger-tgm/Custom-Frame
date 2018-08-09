@@ -41,3 +41,11 @@ public class ResizeListener extends MouseAdapter {
 	}
 }
 
+		if (frame.getWidth() <= frame.getMinimumSize().getWidth()) {
+			frame.setSize((int) frame.getMinimumSize().getWidth(), frame.getHeight());
+			if (grabPosition == GrabPosition.LEFT || grabPosition == GrabPosition.BOTTOM_LEFT) {
+				frame.setLocation(oldX, oldY);
+			}
+		}
+		if (frame.getHeight() <= frame.getMinimumSize().getHeight())
+			frame.setSize(frame.getWidth(), (int) frame.getMinimumSize().getHeight());
