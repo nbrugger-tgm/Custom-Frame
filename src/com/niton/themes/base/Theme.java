@@ -82,8 +82,11 @@ public abstract class Theme{
 		this.frame = frame;
 	}
 
-	public void paintRectangle(Rectangle rec,Graphics g) {
+	public void paintRectangle(Rectangle rec,Graphics2D g) {
 		g.drawRect(rec.x, rec.y, rec.width, rec.height);
+	}
+	public void fillRectangle(Rectangle rec,Graphics2D g) {
+		g.fillRect(rec.x, rec.y, rec.width, rec.height);
 	}
 	public void paintRectangle(Rectangle rec,Graphics2D g,int size,Color color) {
 		Color bev = g.getColor();
@@ -94,7 +97,7 @@ public abstract class Theme{
 		g.setColor(bev);
 		g.setStroke(sbev);
 	}
-	public void paintOval(Rectangle oval,Graphics g) {
+	public void paintOval(Rectangle oval,Graphics2D g) {
 		g.drawOval(oval.x, oval.y, oval.width, oval.height);
 	}
 	public void paintOval(Rectangle rec,Graphics2D g,int size,Color color) {
@@ -106,17 +109,13 @@ public abstract class Theme{
 		g.setColor(bev);
 		g.setStroke(sbev);
 	}
-	
-	public void fillRectangle(Rectangle rec,Graphics g) {
-		g.fillRect(rec.x, rec.y, rec.width, rec.height);
-	}
 	public void fillRectangle(Rectangle rec,Graphics2D g,Color color) {
 		Color bev = g.getColor();
 		g.setColor(color);
-		paintRectangle(rec, g);
+		fillRectangle(rec, g);
 		g.setColor(bev);
 	}
-	public void fillOval(Rectangle oval,Graphics g) {
+	public void fillOval(Rectangle oval,Graphics2D g) {
 		g.fillOval(oval.x, oval.y, oval.width, oval.height);
 	}
 	public void fillOval(Rectangle rec,Graphics2D g,Color color) {
@@ -125,7 +124,7 @@ public abstract class Theme{
 		paintOval(rec, g);
 		g.setColor(bev);
 	}
-	public void write(String text,Color c,Font font,int x,int y,Graphics g) {
+	public void write(String text,Color c,Font font,int x,int y,Graphics2D g) {
 		Color cbev = g.getColor();
 		Font fbev = g.getFont();
 		g.setColor(c);
@@ -134,13 +133,13 @@ public abstract class Theme{
 		g.setColor(cbev);
 		g.setFont(fbev);
 	}
-	public void write(String text,Color c,String fontName,int fontSize,boolean cursive,boolean bold,int x,int y,Graphics g) {
+	public void write(String text,Color c,String fontName,int fontSize,boolean cursive,boolean bold,int x,int y,Graphics2D g) {
 		write(text, c, new Font(fontName, (cursive?Font.ITALIC:0)+(bold?Font.BOLD:0), fontSize), x, y, g);
 	}
-	public void write(String text,Color c,int x,int y,Graphics g) {
+	public void write(String text,Color c,int x,int y,Graphics2D g) {
 		write(text, c, g.getFont(), x, y, g);
 	}
-	public void write(String text,int x,int y,Graphics g) {
+	public void write(String text,int x,int y,Graphics2D g) {
 		write(text, getFrame().getForeground(), x, y, g);
 	}
 }
