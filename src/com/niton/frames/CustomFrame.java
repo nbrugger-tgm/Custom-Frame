@@ -1,17 +1,22 @@
 package com.niton.frames;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
+import java.net.URL;
+import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
@@ -33,6 +38,12 @@ public class CustomFrame extends JFrame {
 	private Rectangle oldSize;
 	private static final long serialVersionUID = 1117999892970902406L;
 	private Theme theme;
+	public static final int[] iconSized = {
+			256,
+			128,
+			64,
+			32
+	};
 	
 	/**
 	 * Creates an Instance of CustomFrame.java
@@ -50,6 +61,17 @@ public class CustomFrame extends JFrame {
 		addComponentListener(new ContentPaneFitterListener(this));
 		setRootPane(new CustomRootPane(t));
 		getContentPane().setBackground(new Color(0, 0, 0, 0));
+		ArrayList<Image> imgs = new ArrayList<>();
+		for (int i : iconSized) {
+			URL iconURL = getClass().getResource("/com/niton/iconx"+i+".png");
+			if(iconURL == null)
+				System.err.println("The "+i+"x"+i+" default icon was not found");
+			else {
+				Image def =  new ImageIcon(iconURL).getImage();
+				imgs.add(def);
+			}
+		}
+		setIconImages(imgs);
 	}
 	/**
 	 * @see java.awt.Window#setVisible(boolean)

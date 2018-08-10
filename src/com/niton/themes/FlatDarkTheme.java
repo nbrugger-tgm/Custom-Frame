@@ -30,7 +30,9 @@ public class FlatDarkTheme extends ResizeableTheme {
 	private Color borders = new Color(35, 35, 35);
 	private Color headerText = new Color(175, 175, 175);
 	private int borderSize = 6;
+	private int buttonPadding = 10;
 	private Font titleFont = new Font("Roboto Light", Font.PLAIN, 20);
+
 	/**
 	 * Creates an Instance of FlatDarkTheme.java
 	 * 
@@ -83,7 +85,21 @@ public class FlatDarkTheme extends ResizeableTheme {
 //		g.drawLine(close.x + close.width, 0, close.x + close.width, 40);
 //		g.drawLine(toggle.x, 0, toggle.x, 40);
 		
+		g.setStroke(new BasicStroke(borderSize, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 12));
+		g.drawLine(mini.x+buttonPadding, 40-buttonPadding, mini.x+mini.width-buttonPadding, 40-buttonPadding);
+
+		g.drawLine(toggle.x+toggle.width-buttonPadding, buttonPadding, toggle.x+buttonPadding+borderSize, 40-buttonPadding-borderSize);
+		g.drawLine(toggle.x+toggle.width-buttonPadding, buttonPadding, toggle.x+buttonPadding, 40-buttonPadding);
+		if(frame.isMaximized()) {
+			g.drawLine(toggle.x+buttonPadding, 20, toggle.x+buttonPadding, 40-buttonPadding);
+			g.drawLine(toggle.x+buttonPadding, 40-buttonPadding, toggle.x+buttonPadding+(toggle.width-(2*buttonPadding))/2, 40-buttonPadding);
+		}else {
+			g.drawLine(toggle.x+buttonPadding+(toggle.width-(2*buttonPadding))/2, buttonPadding, toggle.x+40-(buttonPadding), buttonPadding);
+			g.drawLine(toggle.x+toggle.width-buttonPadding, buttonPadding, toggle.x+toggle.width-buttonPadding, (toggle.height/2));
+		}
 		
+		g.drawLine(close.x+buttonPadding, buttonPadding, close.x+close.width-buttonPadding, 40-buttonPadding);
+		g.drawLine(close.x+close.width-buttonPadding, buttonPadding, close.x+buttonPadding, 40-buttonPadding);
 	}
 
 	private void paintBase(Graphics2D g) {
