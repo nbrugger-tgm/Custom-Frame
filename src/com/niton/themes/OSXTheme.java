@@ -95,7 +95,8 @@ public class OSXTheme extends ResizeableTheme {
 	@Override
 	public void paint(Graphics2D g) {
 		g.setColor(Color.decode("#FBFFFF"));
-		g.fillRect(0, 0, frame.getWidth(), frame.getWidth());
+		g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
+		
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		GradientPaint topGradient = new GradientPaint(0, 0,Color.decode("0xE9F6FF"), 0, 22, Color.decode("0xD2D2D2"));
 		g.setPaint(topGradient);
