@@ -109,37 +109,38 @@ public class FlatDarkTheme extends ResizeableTheme {
 
 	@Override
 	public Rectangle getMinimizeArea() {
-		return new Rectangle(getFrame().getWidth()-120-(frame.isMaximized()?0:borderSize), 0, 40, 40);
+		return new Rectangle(getFrame().getWidth() - 120 - (frame.isMaximized() ? 0 : borderSize), 0, 40, 40);
 	}
-	
+
 	@Override
 	public Rectangle getMaximizeArea() {
-		return new Rectangle(getFrame().getWidth()-80-(frame.isMaximized()?0:borderSize), 0, 40, 40);
+		return new Rectangle(getFrame().getWidth() - 80 - (frame.isMaximized() ? 0 : borderSize), 0, 40, 40);
 	}
-	
+
 	@Override
 	public Rectangle getContentSize() {
-		return new Rectangle((frame.isMaximized()?0:borderSize), 40, getFrame().getWidth()-(frame.isMaximized()?0:borderSize*2), getFrame().getHeight()-40-(frame.isMaximized()?0:borderSize));
+		return new Rectangle((frame.isMaximized() ? 0 : borderSize), 40,
+				getFrame().getWidth() - (frame.isMaximized() ? 0 : borderSize * 2),
+				getFrame().getHeight() - 40 - (frame.isMaximized() ? 0 : borderSize));
 	}
-	
+
 	@Override
 	public Rectangle getCloseArea() {
-		return new Rectangle(getFrame().getWidth()-40-(frame.isMaximized()?0:borderSize), 0, 40, 40);
+		return new Rectangle(getFrame().getWidth() - 40 - (frame.isMaximized() ? 0 : borderSize), 0, 40, 40);
 	}
-	
+
 	@Override
 	public int getResizeRadius() {
 		return borderSize;
 	}
-	
+
 	@Override
 	public Rectangle getDragingArea() {
-		return new Rectangle(0, 0, getFrame().getWidth()-120, 40);
+		return new Rectangle(0, 0, getFrame().getWidth() - 120, 40);
 	}
-	
+
 	@Override
 	public boolean currentlyResizeable() {
 		return !frame.isMaximized();
 	}
 }
-
