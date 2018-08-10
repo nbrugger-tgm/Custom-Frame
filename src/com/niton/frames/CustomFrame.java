@@ -73,6 +73,15 @@ public class CustomFrame extends JFrame {
 		}
 		setIconImages(imgs);
 	}
+	
+	/**
+	 * Creates an Instance of CustomFrame.java
+	 * @author Nils Brugger
+	 * @version 2018-08-10
+	 */
+	public CustomFrame() {
+		this(new FlatDarkTheme());
+	}
 	/**
 	 * @see java.awt.Window#setVisible(boolean)
 	 */
