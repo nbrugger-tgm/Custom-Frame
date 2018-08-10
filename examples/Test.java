@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 
 import com.niton.frames.CustomFrame;
 import com.niton.themes.FlatDarkTheme;
+import com.niton.themes.OSXTheme;
+import com.niton.themes.OSXTheme.Size;
 import com.niton.themes.base.ResizeableTheme;
 
 import java.awt.Color;
@@ -21,12 +23,28 @@ import java.awt.Color;
  */
 public class Test {
 	public static void main(String[] args) {
-//		testMovingAndResizing();
-//		testFlatTheme();
-//		testContent();
+		testOSXTheme();
 		testHeader();
+		testContent();
+		testFlatTheme();
+		testMovingAndResizing();
 	}
 	
+	/**
+	 * <b>Description :</b><br>
+	 * 
+	 * @author Nils Brugger
+	 * @version 2018-08-10
+	 */
+	private static void testOSXTheme() {
+		OSXTheme theme = new OSXTheme();
+		theme.setSize(Size.NORMAL);
+		CustomFrame frame = new CustomFrame(theme);
+		frame.setSize(300,300);
+		frame.setVisible(true);
+		frame.setTitle("A very very very Long JFrame title which is longer than neccessary");
+	}
+
 	/**
 	 * <b>Description :</b><br>
 	 * 
