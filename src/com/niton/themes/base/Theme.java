@@ -129,7 +129,7 @@ public abstract class Theme{
 		Font fbev = g.getFont();
 		g.setColor(c);
 		g.setFont(font);
-		g.drawString(text, x, y+g.getFontMetrics().stringWidth(text));
+		g.drawString(text, x, y+font.getSize());
 		g.setColor(cbev);
 		g.setFont(fbev);
 	}
