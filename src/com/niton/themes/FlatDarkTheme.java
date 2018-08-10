@@ -22,15 +22,6 @@ public class FlatDarkTheme extends ResizeableTheme {
 
 	@Override
 	public void paint(Graphics2D g) {
-//		g.setColor(border);
-//		g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
-//		g.setColor(content);
-//		g.fillRect((frame.isMaximized()?0:borderSize), 40, getFrame().getWidth()-(frame.isMaximized()?0:borderSize*2), getFrame().getHeight()-40-(frame.isMaximized()?0:borderSize));
-//		g.setStroke(new BasicStroke(2));
-//		g.setColor(borders);
-//		g.drawRect(getFrame().getWidth()-120-(frame.isMaximized()?0:borderSize), 0, 40, 40);
-//		g.drawRect(getFrame().getWidth()-80-(frame.isMaximized()?0:borderSize), 0, 40, 40);
-//		g.drawRect(getFrame().getWidth()-40-(frame.isMaximized()?0:borderSize), 0, 40, 40);
 		
 		
 		fillRectangle(new Rectangle(frame.getSize()), g, border);
