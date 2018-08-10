@@ -8,13 +8,16 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
 import java.awt.Rectangle;
+import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.event.MouseInputListener;
 
+import com.niton.components.CustomRootPane;
 import com.niton.listeners.ActionButtonListener;
 import com.niton.listeners.ContentPaneFitterListener;
 import com.niton.themes.base.ResizeableTheme;
@@ -44,18 +47,10 @@ public class CustomFrame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		addMouseListener(new ActionButtonListener(this));
 		setMinimumSize(new Dimension((int) ((int)(theme.getMaximizeArea().getWidth()+theme.getCloseArea().getWidth()+theme.getMinimizeArea().getWidth())*2.5), (int)(theme instanceof ResizeableTheme ? ((ResizeableTheme)theme).getDragingArea().getHeight()*2 : 40)));
-		setLayout(null);
 		addComponentListener(new ContentPaneFitterListener(this));
+		setRootPane(new CustomRootPane(t));
+		getContentPane().setBackground(new Color(0, 0, 0, 0));
 	}
-//	
-//	/**
-//	 * Creates an Instance of CustomFrame.java
-//	 * @author Nils Brugger
-//	 * @version 2018-08-09
-//	 */
-//	public CustomFrame() {
-//	}
-	
 	/**
 	 * @see java.awt.Window#setVisible(boolean)
 	 */
@@ -175,13 +170,6 @@ public class CustomFrame extends JFrame {
 	 */
 	public Theme getTheme() {
 		return theme;
-	}
-	/**
-	 * @see java.awt.Window#paint(java.awt.Graphics)
-	 */
-	@Override
-	public void paint(Graphics paramGraphics) {
-		theme.paint((Graphics2D) paramGraphics);
 	}
 	
 	public void addMouseAdapter(MouseAdapter adapter) {
