@@ -183,7 +183,7 @@ public class FlatDarkTheme extends ResizeableTheme {
 		if (w >= avainable)
 			text += "...";
 		while (w >= avainable) {
-			text = text.substring(0, text.length() - 9);
+			text = text.substring(0, text.length() - 4);
 			text += "...";
 			w = g.getFontMetrics(titleFont).stringWidth(text);
 		}
