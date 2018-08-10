@@ -25,6 +25,7 @@ import javax.swing.event.MouseInputListener;
 import com.niton.components.CustomRootPane;
 import com.niton.listeners.ActionButtonListener;
 import com.niton.listeners.ContentPaneFitterListener;
+import com.niton.themes.FlatDarkTheme;
 import com.niton.themes.base.ResizeableTheme;
 import com.niton.themes.base.Theme;
 
@@ -51,15 +52,15 @@ public class CustomFrame extends JFrame {
 	 * @version 2018-08-09
 	 */
 	public CustomFrame(Theme t) {
-		theme = t;
-		theme.setFrame(this);
 		setUndecorated(true);
-		theme.addListeners();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		addMouseListener(new ActionButtonListener(this));
+		theme = t;
+		theme.setFrame(this);
+		theme.addListeners();
 		setMinimumSize(new Dimension((int) ((int)(theme.getMaximizeArea().getWidth()+theme.getCloseArea().getWidth()+theme.getMinimizeArea().getWidth())*2.5), (int)(theme instanceof ResizeableTheme ? ((ResizeableTheme)theme).getDragingArea().getHeight()*2 : 40)));
 		addComponentListener(new ContentPaneFitterListener(this));
-		setRootPane(new CustomRootPane(t));
+		setRootPane(new CustomRootPane(theme));
 		getContentPane().setBackground(new Color(0, 0, 0, 0));
 		ArrayList<Image> imgs = new ArrayList<>();
 		for (int i : iconSized) {
