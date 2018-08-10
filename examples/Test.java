@@ -1,7 +1,10 @@
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.net.URL;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -20,9 +23,23 @@ public class Test {
 	public static void main(String[] args) {
 //		testMovingAndResizing();
 //		testFlatTheme();
-		testContent();
+//		testContent();
+		testHeader();
 	}
 	
+	/**
+	 * <b>Description :</b><br>
+	 * 
+	 * @author Nils Brugger
+	 * @version 2018-08-10
+	 */
+	private static void testHeader() {
+		CustomFrame frame = new CustomFrame(new FlatDarkTheme());
+		frame.setTitle("I BMMMMMMMMMMMMMMZ");
+		frame.setSize(300,300);
+		frame.setVisible(true);
+	}
+
 	/**
 	 * <b>Description :</b><br>
 	 * 
@@ -33,10 +50,11 @@ public class Test {
 		CustomFrame frame = new CustomFrame(new FlatDarkTheme());
 		frame.setSize(300,300);
 		frame.setVisible(true);
-		JLabel panel = new JLabel("I Bimz");
-		panel.setBackground(Color.BLACK);
+		JLabel panel = new JLabel("XNXX");
+		panel.setBackground(Color.GREEN);
 		frame.getContentPane().setLayout(new GridLayout());
 		frame.getContentPane().add(panel);
+		frame.repaint();
 	}
 
 	/**
@@ -51,7 +69,7 @@ public class Test {
 		frame.setVisible(true);
 	}
 
-	public static void testMovingAndResizing() {
+	private static void testMovingAndResizing() {
 		ResizeableTheme theme = new ResizeableTheme() {
 			
 			@Override
