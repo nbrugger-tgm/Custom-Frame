@@ -44,7 +44,9 @@ public abstract class ResizeableTheme extends Theme {
 	 * @version 2018-08-09
 	 * @return true if it is resizeable at moment
 	 */
-	public abstract boolean currentlyResizeable();
+	public boolean currentlyResizeable() {
+		return frame.isResizable() && !frame.isMaximized();
+	}
 	/**
 	 * @author Nils Brugger
 	 * @version 2018-08-09

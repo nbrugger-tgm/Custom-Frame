@@ -3,6 +3,8 @@ package com.niton.listeners;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
+import javax.swing.SwingUtilities;
+
 import com.niton.frames.CustomFrame;
 
 /**
@@ -23,7 +25,13 @@ public class ContentPaneFitterListener implements ComponentListener {
 	 */
 	@Override
 	public void componentResized(ComponentEvent paramComponentEvent) {
-		frame.fitContentPane();
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				frame.fitContentPane();
+			}
+		});
 	}
 
 	/**
@@ -38,7 +46,13 @@ public class ContentPaneFitterListener implements ComponentListener {
 	 */
 	@Override
 	public void componentShown(ComponentEvent paramComponentEvent) {
-		frame.fitContentPane();
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				frame.fitContentPane();
+			}
+		});
 	}
 
 	/**

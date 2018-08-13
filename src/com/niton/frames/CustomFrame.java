@@ -1,6 +1,7 @@
 package com.niton.frames;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -39,6 +40,7 @@ public class CustomFrame extends JFrame {
 	private Rectangle oldSize;
 	private static final long serialVersionUID = 1117999892970902406L;
 	private Theme theme;
+	private JPanel componentPane;
 	public static final int[] iconSized = {
 			256,
 			128,
@@ -60,8 +62,13 @@ public class CustomFrame extends JFrame {
 		theme.addListeners();
 		setMinimumSize(new Dimension((int) ((int)(theme.getMaximizeArea().getWidth()+theme.getCloseArea().getWidth()+theme.getMinimizeArea().getWidth())*2.5), (int)(theme instanceof ResizeableTheme ? ((ResizeableTheme)theme).getDragingArea().getHeight()*2 : 40)));
 		addComponentListener(new ContentPaneFitterListener(this));
+		getRootPane().removeAll();
 		setRootPane(new CustomRootPane(theme));
+		componentPane = new JPanel();
+		super.getContentPane().setLayout(null);
+		super.getContentPane().add(componentPane);
 		getContentPane().setBackground(new Color(0, 0, 0, 0));
+		super.getContentPane().setBackground(new Color(0, 0, 0, 0));
 		ArrayList<Image> imgs = new ArrayList<>();
 		for (int i : iconSized) {
 			URL iconURL = getClass().getResource("/com/niton/iconx"+i+".png");
@@ -73,6 +80,14 @@ public class CustomFrame extends JFrame {
 			}
 		}
 		setIconImages(imgs);
+	}
+	
+	/**
+	 * @see javax.swing.JFrame#getContentPane()
+	 */
+	@Override
+	public Container getContentPane() {
+		return componentPane;
 	}
 	
 	/**
@@ -89,8 +104,10 @@ public class CustomFrame extends JFrame {
 	@Override
 	public void setVisible(boolean paramBoolean) {
 		super.setVisible(paramBoolean);
-		if(true)
+		if(true) {
 			oldSize = getBounds();
+			fitContentPane();
+		}
 	}
 	
 	/**
@@ -211,6 +228,14 @@ public class CustomFrame extends JFrame {
 	}
 	public void fitContentPane() {
 		getContentPane().setBounds(theme.getContentSize());
-		repaint();
+		getContentPane().validate();
+		super.repaint();
+	}
+	/**
+	 * @see java.awt.Component#repaint()
+	 */
+	@Override
+	public void repaint() {
+		fitContentPane();
 	}
 }

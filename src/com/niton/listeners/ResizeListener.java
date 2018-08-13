@@ -66,7 +66,6 @@ public class ResizeListener extends MouseAdapter {
 				resize(pos, (int) (now.getX() - lastPos.getX()), (int) (now.getY() - lastPos.getY()));
 			lastPos = e.getLocationOnScreen();
 			e.consume();
-			
 			CustomFrame frame = theme.getFrame();
 			int cursor = Cursor.DEFAULT_CURSOR;
 			if (pos != null) {
@@ -136,6 +135,13 @@ public class ResizeListener extends MouseAdapter {
 			}
 		}
 		frame.setCursor(Cursor.getPredefinedCursor(cursor));
+	}
+	/**
+	 * @see java.awt.event.MouseAdapter#mouseExited(java.awt.event.MouseEvent)
+	 */
+	@Override
+	public void mouseExited(MouseEvent e) {
+		theme.getFrame().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 	}
 
 	/**
