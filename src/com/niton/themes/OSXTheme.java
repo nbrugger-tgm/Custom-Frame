@@ -88,6 +88,7 @@ public class OSXTheme extends ResizeableTheme {
 		Rectangle r = frame.getBounds();
 		r.y = (int) (23*size.multiplyer);
 		r.height -= 23*size.multiplyer;
+		r.x = 0;
 		return r;
 	}
 
