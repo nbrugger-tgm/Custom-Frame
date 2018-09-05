@@ -27,12 +27,12 @@ import java.awt.FlowLayout;
  */
 public class Test {
 	public static void main(String[] args) {
-//		testOSXTheme();
+		testOSXTheme();
 //		testHeader();
 //		testContent();
 //		testFlatTheme();
 //		testMovingAndResizing();
-		testSizing();
+//		testSizing();
 	}
 	
 	/**
@@ -51,29 +51,6 @@ public class Test {
 		frame.getContentPane().add(panel);
 		frame.getContentPane().setBackground(Color.RED);
 		frame.repaint();
-		
-		frame.addComponentListener(new ComponentAdapter() {
-			
-			@Override
-			public void componentResized(ComponentEvent e) {
-				new Thread(new Runnable() {
-					
-					@Override
-					public void run() {
-						try {
-							Thread.sleep(2000);
-						} catch (InterruptedException e) {
-						}
-						System.out.println("Panel Size = "+panel.getSize());
-						System.out.println("Frame Size = "+frame.getSize());
-						System.out.println("Content Pane Size = "+frame.getContentPane().getSize());
-						System.out.println("Theme content Size = "+frame.getTheme().getContentSize().getSize());
-						System.out.println("Layout : "+frame.getRootPane().getLayout());
-					}
-				}).start();
-				
-			}
-		});
 	}
 
 	/**

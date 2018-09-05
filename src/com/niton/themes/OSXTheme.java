@@ -6,6 +6,8 @@ import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.geom.RoundRectangle2D;
 
 import com.niton.frames.CustomFrame;
@@ -25,7 +27,7 @@ public class OSXTheme extends ResizeableTheme {
 	@Override
 	public void setFrame(CustomFrame frame) {
 		super.setFrame(frame);
-		frame.setShape(new RoundRectangle2D.Double( frame.getX(),frame.getY(), frame.getWidth(), frame.getHeight(), 100, 100));
+//		frame.setShape(new RoundRectangle2D.Double( frame.getX(),frame.getY(), frame.getWidth(), frame.getHeight(), 10, 10));
 //		frame.setShape(new RoundRectangle2D.Double(0, 0, 100, 100, 10, 10));
 		frame.invalidate();
 	}
