@@ -41,15 +41,11 @@ public class CustomFrame extends JFrame {
 	private static final long serialVersionUID = 1117999892970902406L;
 	private Theme theme;
 	private JPanel componentPane;
-	public static final int[] iconSized = {
-			256,
-			128,
-			64,
-			32
-	};
-	
+	public static final int[] iconSized = { 256, 128, 64, 32 };
+
 	/**
 	 * Creates an Instance of CustomFrame.java
+	 * 
 	 * @author Nils Brugger
 	 * @version 2018-08-09
 	 */
@@ -60,7 +56,11 @@ public class CustomFrame extends JFrame {
 		theme = t;
 		theme.setFrame(this);
 		theme.addListeners();
-		setMinimumSize(new Dimension((int) ((int)(theme.getMaximizeArea().getWidth()+theme.getCloseArea().getWidth()+theme.getMinimizeArea().getWidth())*2.5), (int)(theme instanceof ResizeableTheme ? ((ResizeableTheme)theme).getDragingArea().getHeight()*2 : 40)));
+		setMinimumSize(new Dimension(
+				(int) ((int) (theme.getMaximizeArea().getWidth() + theme.getCloseArea().getWidth()
+						+ theme.getMinimizeArea().getWidth()) * 2.5),
+				(int) (theme instanceof ResizeableTheme ? ((ResizeableTheme) theme).getDragingArea().getHeight() * 2
+						: 40)));
 		addComponentListener(new ContentPaneFitterListener(this));
 		getRootPane().removeAll();
 		setRootPane(new CustomRootPane(theme));
@@ -71,17 +71,17 @@ public class CustomFrame extends JFrame {
 		super.getContentPane().setBackground(new Color(0, 0, 0, 0));
 		ArrayList<Image> imgs = new ArrayList<>();
 		for (int i : iconSized) {
-			URL iconURL = getClass().getResource("/com/niton/iconx"+i+".png");
-			if(iconURL == null)
-				System.err.println("The "+i+"x"+i+" default icon was not found");
+			URL iconURL = getClass().getResource("/com/niton/iconx" + i + ".png");
+			if (iconURL == null)
+				System.err.println("The " + i + "x" + i + " default icon was not found");
 			else {
-				Image def =  new ImageIcon(iconURL).getImage();
+				Image def = new ImageIcon(iconURL).getImage();
 				imgs.add(def);
 			}
 		}
 		setIconImages(imgs);
 	}
-	
+
 	/**
 	 * @see javax.swing.JFrame#getContentPane()
 	 */
@@ -89,27 +89,29 @@ public class CustomFrame extends JFrame {
 	public Container getContentPane() {
 		return componentPane;
 	}
-	
+
 	/**
 	 * Creates an Instance of CustomFrame.java
+	 * 
 	 * @author Nils Brugger
 	 * @version 2018-08-10
 	 */
 	public CustomFrame() {
 		this(new FlatDarkTheme());
 	}
+
 	/**
 	 * @see java.awt.Window#setVisible(boolean)
 	 */
 	@Override
 	public void setVisible(boolean paramBoolean) {
 		super.setVisible(paramBoolean);
-		if(true) {
+		if (true) {
 			oldSize = getBounds();
 			fitContentPane();
 		}
 	}
-	
+
 	/**
 	 * <b>Description :</b><br>
 	 * Checks if the frame fits the normal are exclusive the taskbar.<br>
@@ -124,10 +126,11 @@ public class CustomFrame extends JFrame {
 	public boolean isMaximized() {
 		return getBounds().equals(getMaximizedSize());
 	}
-	
+
 	/**
 	 * <b>Description :</b><br>
 	 * Returns the display device the frame is located on
+	 * 
 	 * @author Nils Brugger
 	 * @version 2018-08-09
 	 * @return the device of the frame
@@ -135,8 +138,10 @@ public class CustomFrame extends JFrame {
 	public GraphicsDevice getDisplay() {
 		return getGraphicsConfiguration().getDevice();
 	}
+
 	/**
 	 * Full screen means the whole screen. but important only one screen
+	 * 
 	 * @author Nils Brugger
 	 * @version 2018-08-09
 	 * @return true if the window size equals the screen size
@@ -144,10 +149,12 @@ public class CustomFrame extends JFrame {
 	public boolean isFullscreen() {
 		return getBounds().equals(getDisplay().getDefaultConfiguration().getBounds());
 	}
-	
+
 	/**
 	 * <b>Description :</b><br>
-	 * Iconified is the state when the frame is only in the tsak bar but the frame itsself is not visible
+	 * Iconified is the state when the frame is only in the tsak bar but the frame
+	 * itsself is not visible
+	 * 
 	 * @author Nils Brugger
 	 * @version 2018-08-09
 	 * @return true if the window is iconified
@@ -155,10 +162,12 @@ public class CustomFrame extends JFrame {
 	public boolean isIconoified() {
 		return getExtendedState() == ICONIFIED;
 	}
+
 	/**
 	 * <b>Description :</b><br>
 	 * Maximizes the window to fit the OS screen.<br>
-	 * Means the task bar on windows for example is still visible 
+	 * Means the task bar on windows for example is still visible
+	 * 
 	 * @author Nils Brugger
 	 * @version 2018-08-09
 	 */
@@ -166,8 +175,10 @@ public class CustomFrame extends JFrame {
 		oldSize = getBounds();
 		setBounds(getMaximizedSize());
 	}
+
 	/**
 	 * Minimizes the frame to the taskbar
+	 * 
 	 * @author Nils Brugger
 	 * @version 2018-08-09
 	 */
@@ -175,9 +186,12 @@ public class CustomFrame extends JFrame {
 		oldSize = getBounds();
 		setExtendedState(JFrame.ICONIFIED);
 	}
+
 	/**
 	 * <b>Description :</b><br>
-	 * Makes the frame fullsize. means nothing else visible than the programm itsself.
+	 * Makes the frame fullsize. means nothing else visible than the programm
+	 * itsself.
+	 * 
 	 * @author Nils Brugger
 	 * @version 2018-08-09
 	 */
@@ -185,16 +199,18 @@ public class CustomFrame extends JFrame {
 		oldSize = getBounds();
 		getDisplay().setFullScreenWindow(this);
 	}
+
 	/**
 	 * <b>Description :</b><br>
 	 * Undos the last resize step (iconify, fullscreen or maximize)
+	 * 
 	 * @author Nils Brugger
 	 * @version 2018-08-09
 	 */
 	public void undoResize() {
-		if(isFullscreen())
+		if (isFullscreen())
 			getDisplay().setFullScreenWindow(null);
-		if(isIconoified())
+		if (isIconoified())
 			setExtendedState(NORMAL);
 		setBounds(oldSize);
 	}
@@ -214,18 +230,20 @@ public class CustomFrame extends JFrame {
 		effectiveScreenArea.width = bounds.width - screenInsets.left - screenInsets.right;
 		return effectiveScreenArea;
 	}
+
 	/**
 	 * @return the theme
 	 */
 	public Theme getTheme() {
 		return theme;
 	}
-	
+
 	public void addMouseAdapter(MouseAdapter adapter) {
 		addMouseListener(adapter);
 		addMouseMotionListener(adapter);
 		addMouseWheelListener(adapter);
 	}
+
 	public void fitContentPane() {
 		getContentPane().setBounds(theme.getContentSize());
 		getContentPane().validate();
