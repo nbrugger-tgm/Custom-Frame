@@ -14,8 +14,10 @@ import javax.swing.JPanel;
 import com.niton.frames.CustomFrame;
 import com.niton.themes.FlatDarkTheme;
 import com.niton.themes.OSXTheme;
+import com.niton.themes.Windows10Theme;
 import com.niton.themes.OSXTheme.Size;
 import com.niton.themes.base.ResizeableTheme;
+import com.niton.themes.base.Theme;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -27,7 +29,8 @@ import java.awt.FlowLayout;
  */
 public class Test {
 	public static void main(String[] args) {
-		testOSXTheme();
+		testWindowsThemes();
+//		testOSXTheme();
 //		testHeader();
 //		testContent();
 //		testFlatTheme();
@@ -35,6 +38,22 @@ public class Test {
 //		testSizing();
 	}
 	
+	/**
+	 * <b>Description :</b><br>
+	 * 
+	 * @author Nils Brugger
+	 * @version 2018-09-10
+	 */
+	private static void testWindowsThemes() {
+		Theme theme = new Windows10Theme();
+//		theme.setSize(Size.NORMAL);
+		CustomFrame frame = new CustomFrame(theme);
+		frame.setSize(300,300);
+		frame.getContentPane().setBackground(Color.black);
+		frame.setVisible(true);
+		frame.setTitle("A very very very Long JFrame title which is longer than neccessary");
+	}
+
 	/**
 	 * <b>Description :</b><br>
 	 * 
