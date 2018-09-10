@@ -20,6 +20,7 @@ import com.niton.themes.base.ResizeableTheme;
 import com.niton.themes.base.Theme;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 /**
@@ -29,7 +30,8 @@ import java.awt.FlowLayout;
  */
 public class Test {
 	public static void main(String[] args) {
-		testWindowsThemes();
+		testFrameRuling();
+//		testWindowsThemes();
 //		testOSXTheme();
 //		testHeader();
 //		testContent();
@@ -38,6 +40,24 @@ public class Test {
 //		testSizing();
 	}
 	
+	/**
+	 * <b>Description :</b><br>
+	 * 
+	 * @author Nils Brugger
+	 * @version 2018-09-10
+	 */
+	private static void testFrameRuling() {
+		Theme theme = new Windows10Theme();
+//		theme.setSize(Size.NORMAL);
+		CustomFrame frame = new CustomFrame(theme);
+		frame.setSize(400,400);
+		frame.getContentPane().setBackground(Color.black);
+		frame.setVisible(true);
+		frame.setTitle("A very very very Long JFrame title which is longer than neccessary");
+		frame.setMinimumSize(new Dimension(300, 300));
+		frame.setMaximumSize(new Dimension(600, 600));
+	}
+
 	/**
 	 * <b>Description :</b><br>
 	 * 
