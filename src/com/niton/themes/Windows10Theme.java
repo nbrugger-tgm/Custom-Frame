@@ -2,6 +2,8 @@ package com.niton.themes;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -93,8 +95,13 @@ public class Windows10Theme extends ResizeableTheme {
 	@Override
 	public void paint(Graphics2D g) {
 		setupRendering(g);
-		drawHeadBar(g);
-		int col = (int) (256-getDarknes(borderColor));
+		int col;
+		if(getDarknes(borderColor) < (256/2))
+			col = 255;
+		else
+			col = 0;
+		drawHeadBar(g, col);
+		
 		
 		drawMinimizeButton(col,g);
 		
@@ -178,17 +185,41 @@ public class Windows10Theme extends ResizeableTheme {
 	 * @version 2018-09-10
 	 * @param g 
 	 */
-	private void drawHeadBar(Graphics g) {
+	private void drawHeadBar(Graphics g,int col) {
+		//base
 		g.setColor(borderColor);
 		g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 		g.setColor(borderColor.darker());
 		Rectangle r = getContentSize();
 		g.drawRect(0, 21, r.width+1, r.height);
+		
+		
+		//icon
 		Image icon = frame.getIconImages().stream().reduce(frame.getIconImages().get(0), (x, z) -> {
 			return (x.getHeight(null) != 16 ? (z.getHeight(null) == 16 ? z : x) : x);
 		});
 		if (icon != null)
 			g.drawImage(icon, 1 + (frame.isMaximized() ? 0 : 1), 2, 16, 16, null);
+		
+		
+		
+		//text
+		String text = frame.getTitle();
+		int avainable = (int) (frame.getWidth() - 20 - 27*3);
+		Font titleFont = new Font("sans-serif", Font.PLAIN, 15);
+		FontMetrics metrics = g.getFontMetrics(titleFont);
+		int w = metrics.stringWidth(text);
+		if (w >= avainable)
+			text += "...";
+		while (w >= avainable) {
+			text = text.substring(0, text.length() - 4);
+			text += "...";
+			w = metrics.stringWidth(text);
+		}
+		write(text, new Color(col, col, col), titleFont, 20+((avainable-metrics.stringWidth(text))/2), 2,(Graphics2D) g);
+		
+		
+		
 	}
 
 	/**
