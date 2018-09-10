@@ -231,11 +231,28 @@ public class CustomFrame extends JFrame {
 		getContentPane().validate();
 		super.repaint();
 	}
+
 	/**
 	 * @see java.awt.Component#repaint()
 	 */
 	@Override
 	public void repaint() {
 		fitContentPane();
+	}
+
+	/**
+	 * @see java.awt.Window#setBounds(int, int, int, int)
+	 */
+	@Override
+	public void setBounds(int x, int y, int width, int height) {
+		if (width < getMinimumSize().width)
+			width = getMinimumSize().width;
+		if (height < getMinimumSize().height)
+			height = getMinimumSize().height;
+		if (height > getMaximumSize().width) 
+			height = getMaximumSize().height;
+		 if (width > getMaximumSize().width) 
+			width = getMaximumSize().width;
+		super.setBounds(x, y, width, height);
 	}
 }
