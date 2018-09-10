@@ -55,44 +55,6 @@ public class ResizeListener extends MouseAdapter {
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent e) {
-		if (SwingUtilities.isRightMouseButton(e))
-			return;
-		if (lastPos != null) {
-			Point now = e.getLocationOnScreen();
-			stayInArea(now, e);
-			GrabPosition pos = getGrabPosition(lastPos, theme.getFrame().getBounds(), theme.getResizeRadius());
-			if (pos != null)
-				resize(pos, (int) (now.getX() - lastPos.getX()), (int) (now.getY() - lastPos.getY()));
-			lastPos = e.getLocationOnScreen();
-			e.consume();
-			CustomFrame frame = theme.getFrame();
-			int cursor = Cursor.DEFAULT_CURSOR;
-			if (pos != null) {
-				switch (pos) {
-				case BOTTOM:
-					cursor = Cursor.N_RESIZE_CURSOR;
-					break;
-				case BOTTOM_LEFT:
-					cursor = Cursor.NE_RESIZE_CURSOR;
-					break;
-				case BOTTOM_RIGHT:
-					cursor = Cursor.NW_RESIZE_CURSOR;
-					break;
-				case LEFT:
-					cursor = Cursor.E_RESIZE_CURSOR;
-					break;
-				case RIGHT:
-					cursor = Cursor.E_RESIZE_CURSOR;
-					break;
-
-				}
-			}
-			frame.setCursor(Cursor.getPredefinedCursor(cursor));
-		}
-	}
-
-	@Override
 	public void mouseReleased(MouseEvent e) {
 		if (e.getButton() != MouseEvent.BUTTON1)
 			return;
@@ -142,6 +104,44 @@ public class ResizeListener extends MouseAdapter {
 	@Override
 	public void mouseExited(MouseEvent e) {
 		theme.getFrame().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		if (SwingUtilities.isRightMouseButton(e))
+			return;
+		if (lastPos != null) {
+			Point now = e.getLocationOnScreen();
+			stayInArea(now, e);
+			GrabPosition pos = getGrabPosition(lastPos, theme.getFrame().getBounds(), theme.getResizeRadius());
+			if (pos != null)
+				resize(pos, (int) (now.getX() - lastPos.getX()), (int) (now.getY() - lastPos.getY()));
+			lastPos = e.getLocationOnScreen();
+			e.consume();
+			CustomFrame frame = theme.getFrame();
+			int cursor = Cursor.DEFAULT_CURSOR;
+			if (pos != null) {
+				switch (pos) {
+				case BOTTOM:
+					cursor = Cursor.N_RESIZE_CURSOR;
+					break;
+				case BOTTOM_LEFT:
+					cursor = Cursor.NE_RESIZE_CURSOR;
+					break;
+				case BOTTOM_RIGHT:
+					cursor = Cursor.NW_RESIZE_CURSOR;
+					break;
+				case LEFT:
+					cursor = Cursor.E_RESIZE_CURSOR;
+					break;
+				case RIGHT:
+					cursor = Cursor.E_RESIZE_CURSOR;
+					break;
+	
+				}
+			}
+			frame.setCursor(Cursor.getPredefinedCursor(cursor));
+		}
 	}
 
 	/**
@@ -232,6 +232,14 @@ public class ResizeListener extends MouseAdapter {
 		}
 		if (frame.getHeight() <= frame.getMinimumSize().getHeight())
 			frame.setSize(frame.getWidth(), (int) frame.getMinimumSize().getHeight());
+		
+		
+		if(frame.getHeight()>= frame.getMaximumSize().getWidth()) {
+			frame.setSize(frame.getWidth(), (int) frame.getMaximumSize().getHeight());
+		}
+		if (frame.getWidth() >= frame.getMaximumSize().getWidth()) {
+			frame.setSize((int) frame.getMaximumSize().getWidth(), frame.getHeight());
+		}
 	}
 
 	private void stayInArea(Point now, InputEvent e) {

@@ -15,6 +15,7 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import com.niton.frames.CustomFrame;
 import com.niton.themes.base.ResizeableTheme;
 
 /**
@@ -174,6 +175,20 @@ public class MoveListener extends MouseAdapter {
 			break;
 		default:
 			return;
+		}
+		CustomFrame frame = theme.getFrame();
+		if (frame.getWidth() <= frame.getMinimumSize().getWidth()) {
+			frame.setSize((int) frame.getMinimumSize().getWidth(), frame.getHeight());
+		}
+		if (frame.getHeight() <= frame.getMinimumSize().getHeight())
+			frame.setSize(frame.getWidth(), (int) frame.getMinimumSize().getHeight());
+		
+		
+		if(frame.getHeight()>= frame.getMaximumSize().getWidth()) {
+			frame.setSize(frame.getWidth(), (int) frame.getMaximumSize().getHeight());
+		}
+		if (frame.getWidth() >= frame.getMaximumSize().getWidth()) {
+			frame.setSize((int) frame.getMaximumSize().getWidth(), frame.getHeight());
 		}
 	}
 
