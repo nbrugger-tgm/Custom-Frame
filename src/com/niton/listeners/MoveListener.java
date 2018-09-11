@@ -145,51 +145,61 @@ public class MoveListener extends MouseAdapter {
 	 * @param allowed
 	 */
 	private void fit(GrabPosition position, Rectangle allowed) {
+		boolean dontWidth = false,dontHeigth = false;
+		CustomFrame frame = theme.getFrame();
+		if (frame.getWidth() <= frame.getMinimumSize().getWidth()) {
+			dontWidth = true;
+		}
+		if (frame.getHeight() <= frame.getMinimumSize().getHeight())
+			dontHeigth = true;
+		
+		
+		if(frame.getHeight()>= frame.getMaximumSize().getHeight()) {
+			dontHeigth = true;
+		}
+		if (frame.getWidth() >= frame.getMaximumSize().getWidth()) {
+			dontWidth = true;
+		}
 		switch (position) {
 		case BOTTOM_LEFT:
+			if(!(dontHeigth || dontWidth))
 			theme.getFrame().setLocation(0, (int) (allowed.getHeight() / 2));
 			theme.getFrame().setSize((int) allowed.getWidth() / 2, (int) (allowed.getHeight() / 2));
 			break;
 		case BOTTOM_RIGHT:
 			theme.getFrame().setSize((int) allowed.getWidth() / 2, (int) (allowed.getHeight() / 2));
-			theme.getFrame().setLocation((int) allowed.getWidth() / 2, (int) (allowed.getHeight() / 2));
+			if(!(dontHeigth || dontWidth))
+				theme.getFrame().setLocation((int) allowed.getWidth() / 2, (int) (allowed.getHeight() / 2));
 			break;
 		case LEFT:
+			if(!(dontHeigth || dontWidth))
 			theme.getFrame().setLocation(0, 0);
 			theme.getFrame().setSize((int) (allowed.getWidth() / 2), (int) allowed.getHeight());
 			break;
 		case RIGHT:
+			if(!(dontHeigth || dontWidth))
 			theme.getFrame().setLocation((int) (allowed.getWidth() / 2), 0);
 			theme.getFrame().setSize((int) (allowed.getWidth() / 2), (int) allowed.getHeight());
 			break;
 		case TOP:
-			theme.getFrame().setBounds(allowed);
+			if(!(dontHeigth || dontWidth))
+				theme.getFrame().setLocation(allowed.getLocation());
+			theme.getFrame().setSize(allowed.getSize());
 			break;
 		case TOP_LEFT:
+			if(!(dontHeigth || dontWidth))
 			theme.getFrame().setLocation(0, 0);
 			theme.getFrame().setSize((int) allowed.getWidth() / 2, (int) (allowed.getHeight() / 2));
 			break;
 		case TOP_RIGHT:
+			if(!(dontHeigth || dontWidth))
 			theme.getFrame().setLocation((int) (allowed.getWidth() / 2), 0);
 			theme.getFrame().setSize((int) allowed.getWidth() / 2, (int) (allowed.getHeight() / 2));
 			break;
 		default:
 			return;
 		}
-		CustomFrame frame = theme.getFrame();
-		if (frame.getWidth() <= frame.getMinimumSize().getWidth()) {
-			frame.setSize((int) frame.getMinimumSize().getWidth(), frame.getHeight());
-		}
-		if (frame.getHeight() <= frame.getMinimumSize().getHeight())
-			frame.setSize(frame.getWidth(), (int) frame.getMinimumSize().getHeight());
 		
-		
-		if(frame.getHeight()>= frame.getMaximumSize().getWidth()) {
-			frame.setSize(frame.getWidth(), (int) frame.getMaximumSize().getHeight());
-		}
-		if (frame.getWidth() >= frame.getMaximumSize().getWidth()) {
-			frame.setSize((int) frame.getMaximumSize().getWidth(), frame.getHeight());
-		}
 	}
 
 	/**
