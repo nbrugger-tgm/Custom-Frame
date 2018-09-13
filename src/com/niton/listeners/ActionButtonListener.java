@@ -7,8 +7,6 @@ import java.awt.event.WindowEvent;
 import com.niton.frames.CustomFrame;
 import com.niton.themes.base.Theme;
 
-import sun.text.normalizer.CharTrie.FriendAgent;
-
 /**
  * This is the ActionButtonListener Class
  * @author Nils Brugger

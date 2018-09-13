@@ -30,12 +30,12 @@ import java.awt.FlowLayout;
  */
 public class Test {
 	public static void main(String[] args) {
-		testFrameRuling();
-//		testWindowsThemes();
-//		testOSXTheme();
+//		testFrameRuling();
+		testWindowsThemes();
+		testOSXTheme();
 //		testHeader();
 //		testContent();
-//		testFlatTheme();
+		testFlatTheme();
 //		testMovingAndResizing();
 //		testSizing();
 	}
