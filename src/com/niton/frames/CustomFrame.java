@@ -31,8 +31,9 @@ import com.niton.themes.base.ResizeableTheme;
 import com.niton.themes.base.Theme;
 
 /**
- * This is the CustomFrame Class
- * 
+ * The Custom Frame is A JFrame using a Theme defined by you or a predefined Theme.<br>
+ * A theme is meant to provide a border for the frame<br>
+* The theme is not changeable later on
  * @author Nils
  * @version 2018-08-08
  */
@@ -44,10 +45,11 @@ public class CustomFrame extends JFrame {
 	public static final int[] iconSized = { 256, 128, 64, 32, 16 };
 
 	/**
-	 * Creates an Instance of CustomFrame.java
-	 * 
+	 * Creates an Instance of CustomFrame<br>
+	 * The theme is not changeable later on
 	 * @author Nils Brugger
 	 * @version 2018-08-09
+	 * @param t The theme to use
 	 */
 	public CustomFrame(Theme t) {
 		setUndecorated(true);
@@ -91,8 +93,8 @@ public class CustomFrame extends JFrame {
 	}
 
 	/**
-	 * Creates an Instance of CustomFrame.java
-	 * 
+	 * Creates an Instance of CustomFrame.java<br>
+	 * Using the {@link FlatDarkTheme} as default
 	 * @author Nils Brugger
 	 * @version 2018-08-10
 	 */
@@ -215,6 +217,13 @@ public class CustomFrame extends JFrame {
 		setBounds(oldSize);
 	}
 
+	/**
+	 * <b>Description :</b><br>
+	 * Maximized state is the size of a Frame in maximized mode
+	 * @author Nils Brugger
+	 * @version 2018-09-13
+	 * @return the Bounds the frame should have if it is maximized
+	 */
 	public Rectangle getMaximizedSize() {
 		GraphicsConfiguration gc = getDisplay().getDefaultConfiguration();
 
@@ -232,18 +241,29 @@ public class CustomFrame extends JFrame {
 	}
 
 	/**
-	 * @return the theme
+	 * @return the theme of the Frame
 	 */
 	public Theme getTheme() {
 		return theme;
 	}
-
+	/**
+	 * <b>Description :</b><br>
+	 * Adds a mouse addpter to mouse Motion, mouse Wheel, and Mouse Button listener
+	 * @author Nils Brugger
+	 * @version 2018-09-13
+	 * @param adapter
+	 */
 	public void addMouseAdapter(MouseAdapter adapter) {
 		addMouseListener(adapter);
 		addMouseMotionListener(adapter);
 		addMouseWheelListener(adapter);
 	}
 
+	/**
+	 * Makes that the content fits the Area it should
+	 * @author Nils Brugger
+	 * @version 2018-09-13
+	 */
 	public void fitContentPane() {
 		getContentPane().setBounds(theme.getContentSize());
 		getContentPane().validate();

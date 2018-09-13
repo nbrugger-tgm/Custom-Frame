@@ -11,6 +11,7 @@ import com.niton.themes.base.Theme;
 
 /**
  * This is the CustomRootPane Class
+ *<br>It is responsible to paint the theme
  * @author Nils Brugger
  * @version 2018-08-10
  */

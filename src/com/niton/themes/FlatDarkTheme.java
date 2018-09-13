@@ -22,8 +22,8 @@ import com.niton.themes.base.ResizeableTheme;
 import com.niton.themes.base.Theme;
 
 /**
- * This is the FlatDarkTheme Class
- * 
+ * This is the FlatDarkTheme Class.
+ * A simple theme with borders good useable for all OS
  * @author Nils Brugger
  * @version 2018-08-09
  */

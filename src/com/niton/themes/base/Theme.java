@@ -16,7 +16,8 @@ import javax.swing.Icon;
 import com.niton.frames.CustomFrame;
 
 /**
- * This is the Theme Class
+ * This is the Theme Class.<br>
+ * A theme defines the custom rendering of a frame
  * @author Nils Brugger
  * @version 2018-08-08
  */
@@ -81,13 +82,38 @@ public abstract class Theme{
 	public void setFrame(CustomFrame frame) {
 		this.frame = frame;
 	}
-
+	/**
+	 * <b>Description :</b><br>
+	 * Paints the rectange to the graphics
+	 * @author Nils Brugger
+	 * @version 2018-09-13
+	 * @param rec the bounds of the rectangle to paint
+	 * @param g the graphics to paint on
+	 */
 	public void paintRectangle(Rectangle rec,Graphics2D g) {
 		g.drawRect(rec.x, rec.y, rec.width, rec.height);
 	}
+	/**
+	 * <b>Description :</b><br>
+	 * Paints the rectange to the graphics
+	 * @author Nils Brugger
+	 * @version 2018-09-13
+	 * @param rec the bounds of the rectangle to paint
+	 * @param g the graphics to paint on
+	 */
 	public void fillRectangle(Rectangle rec,Graphics2D g) {
 		g.fillRect(rec.x, rec.y, rec.width, rec.height);
 	}
+	/**
+	 * <b>Description :</b><br>
+	 * paints the border of the rectangle with the given size and color
+	 * @author Nils Brugger
+	 * @version 2018-09-13
+	 * @param rec the rectangle to paint
+	 * @param g the {@link Graphics}to paint on
+	 * @param size the size of the border (width)
+	 * @param color the color of the border
+	 */
 	public void paintRectangle(Rectangle rec,Graphics2D g,int size,Color color) {
 		Color bev = g.getColor();
 		g.setColor(color);
@@ -97,6 +123,14 @@ public abstract class Theme{
 		g.setColor(bev);
 		g.setStroke(sbev);
 	}
+	/**
+	 * <b>Description :</b><br>
+	 * The rectangle describes the heigth width and position of the oval
+	 * @author Nils Brugger
+	 * @version 2018-09-13
+	 * @param oval the bounds
+	 * @param g the graphics to paint on
+	 */
 	public void paintOval(Rectangle oval,Graphics2D g) {
 		g.drawOval(oval.x, oval.y, oval.width, oval.height);
 	}
@@ -124,6 +158,18 @@ public abstract class Theme{
 		paintOval(rec, g);
 		g.setColor(bev);
 	}
+	/**
+	 * <b>Description :</b><br>
+	 * Paints the string as we are define the position as the upper left corner
+	 * @author Nils Brugger
+	 * @version 2018-09-13
+	 * @param text the text to write
+	 * @param c the color for the text
+	 * @param font the font to use
+	 * @param x position
+	 * @param y position
+	 * @param g the graphics to write on
+	 */
 	public void write(String text,Color c,Font font,int x,int y,Graphics2D g) {
 		Color cbev = g.getColor();
 		Font fbev = g.getFont();
@@ -133,12 +179,23 @@ public abstract class Theme{
 		g.setColor(cbev);
 		g.setFont(fbev);
 	}
+	/**
+	 * {@link #write(String, Color, Font, int, int, Graphics2D)}
+	 */
 	public void write(String text,Color c,String fontName,int fontSize,boolean cursive,boolean bold,int x,int y,Graphics2D g) {
 		write(text, c, new Font(fontName, (cursive?Font.ITALIC:0)+(bold?Font.BOLD:0), fontSize), x, y, g);
 	}
+
+	/**
+	 * {@link #write(String, Color, Font, int, int, Graphics2D)}
+	 */
 	public void write(String text,Color c,int x,int y,Graphics2D g) {
 		write(text, c, g.getFont(), x, y, g);
 	}
+
+	/**
+	 * {@link #write(String, Color, Font, int, int, Graphics2D)}
+	 */
 	public void write(String text,int x,int y,Graphics2D g) {
 		write(text, getFrame().getForeground(), x, y, g);
 	}
