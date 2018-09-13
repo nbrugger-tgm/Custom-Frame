@@ -41,7 +41,7 @@ public class CustomFrame extends JFrame {
 	private static final long serialVersionUID = 1117999892970902406L;
 	private Theme theme;
 	private JPanel componentPane;
-	public static final int[] iconSized = { 256, 128, 64, 32 };
+	public static final int[] iconSized = { 256, 128, 64, 32, 16 };
 
 	/**
 	 * Creates an Instance of CustomFrame.java
@@ -263,14 +263,22 @@ public class CustomFrame extends JFrame {
 	 */
 	@Override
 	public void setBounds(int x, int y, int width, int height) {
-		if (width < getMinimumSize().width)
+		if (width < getMinimumSize().width) {
 			width = getMinimumSize().width;
-		if (height < getMinimumSize().height)
+			x = getX();
+		}
+		if (height < getMinimumSize().height) {
 			height = getMinimumSize().height;
-		if (height > getMaximumSize().width) 
+			y = getY();
+		}
+		if (height > getMaximumSize().width) {
 			height = getMaximumSize().height;
-		 if (width > getMaximumSize().width) 
+			y = getY();
+		}
+		if (width > getMaximumSize().width) { 
 			width = getMaximumSize().width;
+			x = getX();
+		}
 		super.setBounds(x, y, width, height);
 	}
 }

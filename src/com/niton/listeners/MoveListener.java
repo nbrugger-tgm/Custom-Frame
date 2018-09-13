@@ -56,6 +56,8 @@ public class MoveListener extends MouseAdapter {
 
 		if (e.getButton() != MouseEvent.BUTTON1)
 			return;
+		if(getGrabPosition(e.getLocationOnScreen(), theme.getFrame().getBounds(), theme.getResizeRadius()) != null)
+			return;
 		Point relative = e.getPoint();
 		if (theme.getDragingArea().contains(relative) && !(theme.getCloseArea().contains(relative)
 				|| theme.getMaximizeArea().contains(relative) || theme.getMinimizeArea().contains(relative))) {
@@ -278,5 +280,45 @@ public class MoveListener extends MouseAdapter {
 		if(lastPos != null)
 			e.consume();
 		lastPos = null;
+	}
+	
+	/**
+	 * <b>Description :</b><br>
+	 * 
+	 * @author Nils Brugger
+	 * @version 2018-08-09
+	 * @param point
+	 * @param bounds
+	 * @return
+	 */
+	private GrabPosition getGrabPosition(Point point, Rectangle bounds, int disdance) {
+		GrabPosition pos = null;
+		Point corner = bounds.getLocation();
+		if (corner.distance(point) < disdance) {
+			pos = GrabPosition.TOP_LEFT;
+		}
+		corner.translate((int) bounds.getWidth(), 0);
+		if (corner.distance(point) < disdance) {
+			pos = GrabPosition.TOP_RIGHT;
+		}
+		corner.translate(0, (int) bounds.getHeight());
+		if (corner.distance(point) < disdance) {
+			pos = GrabPosition.BOTTOM_RIGHT;
+		}
+		corner.translate((int) -bounds.getWidth(), 0);
+		if (corner.distance(point) < disdance) {
+			pos = GrabPosition.BOTTOM_LEFT;
+		}
+		if (pos == null) {
+			if (point.getX() - bounds.getX() < disdance)
+				pos = GrabPosition.LEFT;
+			if (point.getY() - bounds.getY() < disdance)
+				pos = GrabPosition.TOP;
+			if ((bounds.getHeight() + bounds.getY()) - point.getY() < disdance)
+				pos = GrabPosition.BOTTOM;
+			if ((bounds.getWidth() + bounds.getX()) - point.getX() < disdance)
+				pos = GrabPosition.RIGHT;
+		}
+		return pos;
 	}
 }
