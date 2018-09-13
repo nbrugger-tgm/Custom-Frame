@@ -25,9 +25,9 @@ import com.niton.themes.base.ResizeableTheme;
  */
 public class ResizeListener extends MouseAdapter {
 	private ResizeableTheme theme;
-	private Point lastPos;
 	private Robot preventer;
 	private GrabPosition grab;
+	private Point lastPos;
 
 	public ResizeListener(ResizeableTheme theme) {
 		super();
@@ -51,8 +51,7 @@ public class ResizeListener extends MouseAdapter {
 		if (theme.currentlyResizeable()) {
 			if (getGrabPosition(e.getLocationOnScreen(), theme.getFrame().getBounds(),
 					theme.getResizeRadius()) != null) {
-				lastPos = e.getLocationOnScreen();
-				grab = getGrabPosition(lastPos, theme.getFrame().getBounds(), theme.getResizeRadius());
+				grab = getGrabPosition(e.getLocationOnScreen(), theme.getFrame().getBounds(), theme.getResizeRadius());
 				e.consume();
 			}
 		}
@@ -63,8 +62,7 @@ public class ResizeListener extends MouseAdapter {
 	public void mouseReleased(MouseEvent e) {
 		if (!SwingUtilities.isLeftMouseButton(e))
 			return;
-		if (lastPos != null) {
-			lastPos = null;
+		if (grab != null) {
 			grab = null;
 			e.consume();
 			theme.getFrame().repaint();
@@ -77,13 +75,47 @@ public class ResizeListener extends MouseAdapter {
 	 */
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		
-		GrabPosition pos = getGrabPosition(e.getLocationOnScreen(), theme.getFrame().getBounds(),
-				theme.getResizeRadius());
-		CustomFrame frame = theme.getFrame();
+		System.out.println("Move");
+		grab = getGrabPosition(e.getLocationOnScreen(), theme.getFrame().getBounds(), theme.getResizeRadius());
+		adaptCursor();
+		grab = null;
+	}
+
+	/**
+	 * @see java.awt.event.MouseAdapter#mouseExited(java.awt.event.MouseEvent)
+	 */
+	@Override
+	public void mouseExited(MouseEvent e) {
+		theme.getFrame().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		if (!SwingUtilities.isLeftMouseButton(e))
+			return;
+		lastPos = e.getLocationOnScreen();
+		if (grab != null) {
+			Point now = e.getLocationOnScreen();
+			if (stayInArea(now, e)) {
+				return;
+			}
+			resize(grab, now);
+			e.consume();
+
+		}
+	}
+
+	/**
+	 * <b>Description :</b><br>
+	 * 
+	 * @author Nils Brugger
+	 * @version 2018-09-12
+	 */
+	private void adaptCursor() {
 		int cursor = Cursor.DEFAULT_CURSOR;
-		if (pos != null) {
-			switch (pos) {
+
+		if (grab != null && theme.currentlyResizeable()) {
+			switch (grab) {
 			case TOP:
 			case BOTTOM:
 				cursor = Cursor.N_RESIZE_CURSOR;
@@ -102,68 +134,6 @@ public class ResizeListener extends MouseAdapter {
 				break;
 			}
 		}
-		frame.setCursor(Cursor.getPredefinedCursor(cursor));
-	}
-
-	/**
-	 * @see java.awt.event.MouseAdapter#mouseExited(java.awt.event.MouseEvent)
-	 */
-	@Override
-	public void mouseExited(MouseEvent e) {
-		theme.getFrame().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		if (!SwingUtilities.isLeftMouseButton(e))
-			return;
-		if (lastPos != null) {
-			Point now = e.getLocationOnScreen();
-			if(getGrabPosition(lastPos, theme.getFrame().getBounds(), theme.getResizeRadius()) != grab && getGrabPosition(now, theme.getFrame().getBounds(), theme.getResizeRadius()) != grab)
-				return;
-			
-			if (stayInArea(now, e)) {
-				return;
-			}
-			resize(grab, (int) (now.getX() - lastPos.getX()), (int) (now.getY() - lastPos.getY()));
-
-			lastPos = e.getLocationOnScreen();
-			e.consume();
-
-		}
-	}
-
-	/**
-	 * <b>Description :</b><br>
-	 * 
-	 * @author Nils Brugger
-	 * @version 2018-09-12
-	 */
-	private void adaptCursor() {
-		if (!theme.currentlyResizeable())
-			return;
-		if(grab == null)
-			return;
-		int cursor = Cursor.DEFAULT_CURSOR;
-		switch (grab) {
-		case TOP:
-		case BOTTOM:
-			cursor = Cursor.N_RESIZE_CURSOR;
-			break;
-		case TOP_RIGHT:
-		case BOTTOM_LEFT:
-			cursor = Cursor.NE_RESIZE_CURSOR;
-			break;
-		case TOP_LEFT:
-		case BOTTOM_RIGHT:
-			cursor = Cursor.NW_RESIZE_CURSOR;
-			break;
-		case RIGHT:
-		case LEFT:
-			cursor = Cursor.E_RESIZE_CURSOR;
-			break;
-		}
-	
 		theme.getFrame().setCursor(Cursor.getPredefinedCursor(cursor));
 	}
 
@@ -218,52 +188,33 @@ public class ResizeListener extends MouseAdapter {
 	 * @param x
 	 * @param y
 	 */
-	private void resize(GrabPosition grabPosition, int x, int y) {
+	private void resize(GrabPosition grabPosition, Point p) {
 		CustomFrame frame = theme.getFrame();
-		int oldW = frame.getWidth();
-		int oldH = frame.getHeight();
-		int oldX = frame.getX();
-		int oldY = frame.getY();
 		switch (grabPosition) {
 		case BOTTOM:
-			frame.setBounds(oldX, oldY, oldW, oldH + y);
+			frame.setSize(frame.getWidth(), (int) (p.getY() - frame.getY()));
 			break;
 		case BOTTOM_LEFT:
-			frame.setBounds(oldX + x, oldY, oldW - x, oldH + y);
+			frame.setBounds(p.x, frame.getY(), frame.getWidth() + (frame.getX() - p.x), p.y - frame.getY());
 			break;
 		case BOTTOM_RIGHT:
-			frame.setBounds(oldX, oldY, oldW + x, oldH + y);
+			frame.setSize((int) (p.getX() - frame.getX()), (int) (p.getY() - frame.getY()));
 			break;
 		case LEFT:
-			frame.setBounds(oldX + x, oldY, oldW - x, oldH);
+			frame.setBounds(p.x, frame.getY(), frame.getWidth() + (frame.getX() - p.x), frame.getHeight());
 			break;
 		case RIGHT:
-			frame.setBounds(oldX, oldY, oldW + x, oldH);
+			frame.setSize((int) (p.getX() - frame.getX()), frame.getHeight());
 			break;
 		case TOP:
-			frame.setBounds(oldX, oldY + y, oldW, oldH - y);
+			frame.setBounds(frame.getX(), p.y, frame.getWidth(), (frame.getHeight() + frame.getY())-p.y);
 			break;
 		case TOP_LEFT:
-			frame.setBounds(oldX - x, oldY - y, oldW + x, oldH + y);
+			frame.setBounds(p.x, p.y, frame.getWidth() + (frame.getX() - p.x), (frame.getHeight() + frame.getY())-p.y);
 			break;
 		case TOP_RIGHT:
-			frame.setBounds(oldX, oldY - y, oldW + x, oldH + y);
+			frame.setBounds(frame.getX(), p.y, (p.x-frame.getX()), (frame.getHeight() + frame.getY())-p.y);
 			break;
-		}
-		if (frame.getWidth() <= frame.getMinimumSize().getWidth()) {
-			frame.setSize((int) frame.getMinimumSize().getWidth(), frame.getHeight());
-			if (grabPosition == GrabPosition.LEFT || grabPosition == GrabPosition.BOTTOM_LEFT) {
-				frame.setLocation(oldX, oldY);
-			}
-		}
-		if (frame.getHeight() <= frame.getMinimumSize().getHeight())
-			frame.setSize(frame.getWidth(), (int) frame.getMinimumSize().getHeight());
-
-		if (frame.getHeight() >= frame.getMaximumSize().getWidth()) {
-			frame.setSize(frame.getWidth(), (int) frame.getMaximumSize().getHeight());
-		}
-		if (frame.getWidth() >= frame.getMaximumSize().getWidth()) {
-			frame.setSize((int) frame.getMaximumSize().getWidth(), frame.getHeight());
 		}
 	}
 
