@@ -26,6 +26,11 @@ import com.niton.themes.base.ResizeableTheme;
 public class Windows10Theme extends ResizeableTheme {
 	public Color borderColor = Color.WHITE;
 	public boolean overMinimize = false,overMaximize = false,overClose = false;
+	public int topSize = 29;
+	public double buttonWidthRatio = 2;
+	public int preferedIconSize = 32;
+	public int buttonIconSize = 8;
+	public int normalizeDisdance = 3;
 	/**
 	 * @see com.niton.themes.base.ResizeableTheme#getResizeRadius()
 	 */
@@ -57,8 +62,11 @@ public class Windows10Theme extends ResizeableTheme {
 	@Override
 	public Rectangle getCloseArea() {
 		boolean maximized = frame.isMaximized();
-		int width = maximized ? 27 : 26;
-		return new Rectangle((frame.getWidth()-1)-26*1, (maximized ? 0 :1), width,maximized ? 23 : 20);
+		int width = topSize -6;
+		width *= buttonWidthRatio;
+		if(maximized)
+			width++;
+		return new Rectangle((int) ((frame.getWidth()-1)-width*1), (maximized ? 0 :1), width,maximized ? topSize+1 : topSize-2);
 	}
 
 	/**
@@ -67,8 +75,9 @@ public class Windows10Theme extends ResizeableTheme {
 	@Override
 	public Rectangle getMaximizeArea() {
 		boolean maximized = frame.isMaximized();
-		int width = maximized ? 27 : 26;
-		return new Rectangle((frame.getWidth()-1)-26*2, (maximized ? 0 :1), width,maximized ? 23 : 20);
+		int width = topSize -6;
+		width *= buttonWidthRatio;
+		return new Rectangle((int) ((frame.getWidth()-1)-width*2), (maximized ? 0 :1), width,maximized ? topSize+1 : topSize-2);
 	}
 
 	/**
@@ -77,8 +86,9 @@ public class Windows10Theme extends ResizeableTheme {
 	@Override
 	public Rectangle getMinimizeArea() {
 		boolean maximized = frame.isMaximized();
-		int width = maximized ? 27 : 26;
-		return new Rectangle((frame.getWidth()-1)-26*3, (maximized ? 0 :1), width,maximized ? 23 : 20);
+		int width = topSize -6;
+		width *= buttonWidthRatio;
+		return new Rectangle((int) ((frame.getWidth()-1)-width*3), (maximized ? 0 :1), width,maximized ? topSize+1 : topSize-2);
 	}
 
 	/**
@@ -86,7 +96,7 @@ public class Windows10Theme extends ResizeableTheme {
 	 */
 	@Override
 	public Rectangle getContentSize() {
-		return new Rectangle((frame.isMaximized() ? 0 :1), 22, frame.getWidth()-(frame.isMaximized() ? 0 :2), frame.getHeight()-((frame.isMaximized() ? 0 :1) + 22));
+		return new Rectangle((frame.isMaximized() ? 0 :1), topSize, frame.getWidth()-(frame.isMaximized() ? 0 :2), frame.getHeight()-((frame.isMaximized() ? 0 :1) + topSize));
 	}
 
 	/**
@@ -101,7 +111,6 @@ public class Windows10Theme extends ResizeableTheme {
 		else
 			col = 0;
 		drawHeadBar(g, col);
-		
 		
 		drawMinimizeButton(col,g);
 		
@@ -126,10 +135,10 @@ public class Windows10Theme extends ResizeableTheme {
 		}else {
 			g.setColor(new Color(col, col, col));
 		}
-		int startX = close.x + ((close.width-7)/2);
-		int startY = close.y + ((close.height-7)/2);
-		int endX = startX + 7;
-		int endY = startY + 7;
+		int startX = close.x + ((close.width-buttonIconSize)/2);
+		int startY = close.y + ((close.height-buttonIconSize)/2);
+		int endX = startX + buttonIconSize;
+		int endY = startY + buttonIconSize;
 		g.drawLine(startX, startY, endX, endY);
 		g.drawLine(startX, endY, endX, startY);
 	}
@@ -150,11 +159,12 @@ public class Windows10Theme extends ResizeableTheme {
 		}else {
 			g.setColor(new Color(col, col, col));
 		}
-		int x = maximizeArea.x+((maximizeArea.width-7)/2);
-		g.drawRect(x, 7, 7, 7);
+		int x = maximizeArea.x+((maximizeArea.width-buttonIconSize)/2);
+		int y = (maximizeArea.height/2)-(buttonIconSize/2);
+		g.drawRect(x, y, buttonIconSize, buttonIconSize);
 		if(frame.isMaximized()) {
-			g.drawLine(x+2, 5, x+9, 5);
-			g.drawLine(x+9, 5, x+9, 12);
+			g.drawLine(x+normalizeDisdance, y-normalizeDisdance, x+buttonIconSize+normalizeDisdance, y-normalizeDisdance);
+			g.drawLine(x+buttonIconSize+normalizeDisdance, y-normalizeDisdance, x+buttonIconSize+normalizeDisdance, y-normalizeDisdance+buttonIconSize);
 		}
 	}
 
@@ -174,8 +184,8 @@ public class Windows10Theme extends ResizeableTheme {
 		}else {
 			g.setColor(new Color(col, col, col));
 		}
-		int x = minimizeArea.x+((minimizeArea.width-7)/2);
-		g.drawLine(x, 11, x+7, 11);
+		int x = minimizeArea.x+((minimizeArea.width-buttonIconSize)/2);
+		g.drawLine(x, minimizeArea.height/2, x+buttonIconSize, minimizeArea.height/2);
 	}
 
 	/**
@@ -191,22 +201,24 @@ public class Windows10Theme extends ResizeableTheme {
 		g.fillRect(0, 0, frame.getWidth(), frame.getHeight());
 		g.setColor(borderColor.darker());
 		Rectangle r = getContentSize();
-		g.drawRect(0, 21, r.width+1, r.height);
+		g.drawRect(0, topSize-1, r.width+1, r.height);
 		
 		
 		//icon
 		Image icon = frame.getIconImages().stream().reduce(frame.getIconImages().get(0), (x, z) -> {
-			return (x.getHeight(null) != 16 ? (z.getHeight(null) == 16 ? z : x) : x);
+			return (x.getHeight(null) != preferedIconSize ? (z.getHeight(null) == preferedIconSize ? z : x) : x);
 		});
 		if (icon != null)
-			g.drawImage(icon, 1 + (frame.isMaximized() ? 0 : 1), 2, 16, 16, null);
+			g.drawImage(icon, 1 + (frame.isMaximized() ? 0 : 1), 2, topSize-4, topSize-2, null);
 		
-		
+
+		int width = topSize -6;
+		width *= buttonWidthRatio;
 		
 		//text
 		String text = frame.getTitle();
-		int avainable = (int) (frame.getWidth() - 20 - 27*3);
-		Font titleFont = new Font("sans-serif", Font.PLAIN, 15);
+		int avainable = (int) (frame.getWidth() - topSize - (width*3) - 5);
+		Font titleFont = new Font("sans-serif", Font.PLAIN, (int) (topSize*0.50));
 		FontMetrics metrics = g.getFontMetrics(titleFont);
 		int w = metrics.stringWidth(text);
 		if (w >= avainable)
@@ -216,10 +228,7 @@ public class Windows10Theme extends ResizeableTheme {
 			text += "...";
 			w = metrics.stringWidth(text);
 		}
-		write(text, new Color(col, col, col), titleFont, 20+((avainable-metrics.stringWidth(text))/2), 2,(Graphics2D) g);
-		
-		
-		
+		write(text, new Color(col, col, col), titleFont, topSize+((avainable-metrics.stringWidth(text))/2), 2,(Graphics2D) g);
 	}
 
 	/**
@@ -230,7 +239,7 @@ public class Windows10Theme extends ResizeableTheme {
 	 * @param g
 	 */
 	private void setupRendering(Graphics2D g) {
-		g.setStroke(new BasicStroke(1.35f));
+//		g.setStroke(new BasicStroke(1.35f));
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
 		g.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
