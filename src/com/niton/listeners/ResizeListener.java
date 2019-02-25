@@ -75,7 +75,6 @@ public class ResizeListener extends MouseAdapter {
 	 */
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		System.out.println("Move");
 		grab = getGrabPosition(e.getLocationOnScreen(), theme.getFrame().getBounds(), theme.getResizeRadius());
 		adaptCursor();
 		grab = null;

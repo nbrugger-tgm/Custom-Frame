@@ -53,6 +53,7 @@ public class Test {
 		frame.setSize(400,400);
 		frame.getContentPane().setBackground(Color.black);
 		frame.setVisible(true);
+		frame.setResizable(false);
 		frame.setTitle("A very very very Long JFrame title which is longer than neccessary");
 		frame.setMinimumSize(new Dimension(300, 300));
 		frame.setMaximumSize(new Dimension(600, 600));
