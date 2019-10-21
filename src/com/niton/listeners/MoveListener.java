@@ -147,6 +147,11 @@ public class MoveListener extends MouseAdapter {
 	 * @param allowed
 	 */
 	private void fit(GrabPosition position, Rectangle allowed) {
+		
+
+		if(!theme.getFrame().isResizable())
+			return;
+		
 		boolean dontWidth = false,dontHeigth = false;
 		CustomFrame frame = theme.getFrame();
 		if (frame.getWidth() <= frame.getMinimumSize().getWidth()) {
@@ -212,6 +217,11 @@ public class MoveListener extends MouseAdapter {
 	 * @param position
 	 */
 	private void showPreview(GrabPosition position, Rectangle allowed) {
+		
+
+		if(!theme.getFrame().isResizable())
+			return;
+		
 		switch (position) {
 		case BOTTOM_LEFT:
 			preview.setLocation(0, (int) (allowed.getHeight() / 2));

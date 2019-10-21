@@ -41,6 +41,8 @@ public class ResizeListener extends MouseAdapter {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		if(!theme.getFrame().isResizable())
+			return;
 		if (!SwingUtilities.isLeftMouseButton(e))
 			return;
 		Point relative = e.getPoint();
@@ -60,6 +62,8 @@ public class ResizeListener extends MouseAdapter {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		if(!theme.getFrame().isResizable())
+			return;
 		if (!SwingUtilities.isLeftMouseButton(e))
 			return;
 		if (grab != null) {
@@ -75,6 +79,8 @@ public class ResizeListener extends MouseAdapter {
 	 */
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		if(!theme.getFrame().isResizable())
+			return;
 		grab = getGrabPosition(e.getLocationOnScreen(), theme.getFrame().getBounds(), theme.getResizeRadius());
 		adaptCursor();
 		grab = null;
@@ -85,11 +91,15 @@ public class ResizeListener extends MouseAdapter {
 	 */
 	@Override
 	public void mouseExited(MouseEvent e) {
+		if(!theme.getFrame().isResizable())
+			return;
 		theme.getFrame().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		if(!theme.getFrame().isResizable())
+			return;
 		if (!SwingUtilities.isLeftMouseButton(e))
 			return;
 		lastPos = e.getLocationOnScreen();
