@@ -5,9 +5,11 @@ There are different pre defined borders. This borders are called Themes.
 ## Installation
 > You need `maven` for the installation
 ```bash
-git clone https://github.com/nbrugger-tgm/Niton-Media-Framework/
-cd Niton-Media-Framework
+git clone https://github.com/nbrugger-tgm/Custom-Frame/
+cd Custom-Frame
 mvn install
+cd ..
+rm Custom-Frame -r
 ```
 ## Predefined Themes
 #### FlatDarkTheme
