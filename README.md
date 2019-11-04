@@ -2,6 +2,13 @@
 This is an API which allowes to custom bordering JFrames.
 All themes work on All Operating Systems (which provide a graphical environment)
 There are different pre defined borders. This borders are called Themes.
+## Installation
+> You need `maven` for the installation
+```bash
+git clone https://github.com/nbrugger-tgm/Niton-Media-Framework/
+cd Niton-Media-Framework
+mvn install
+```
 ## Predefined Themes
 #### FlatDarkTheme
 This theme is a custom by me designed theme which looks simple and dark.
