@@ -1,5 +1,5 @@
 /bin/
 src/com/niton/Thumbs.db
 .idea/**
-
-Custom-Frame.iml
+*.iml
+target/**

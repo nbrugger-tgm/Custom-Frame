@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <!--Maven Version-->
+    <modelVersion>4.0.0</modelVersion>
+
+
+    <!--
+    Settings
+
+    Only edit this part unless you are very well knowing maven
+    -->
+    <properties>
+        <java.version>1.8</java.version>
+        <app.name>Custom Frame</app.name>
+        <app.artifact>customframe</app.artifact>
+        <app.version>1.0</app.version>
+        <build.starter>com.niton.test.Test</build.starter>
+
+        <!-- Advanced -->
+        <app.group>com.niton</app.group>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <sources.test>src/java/test</sources.test>
+        <sources.main>src/java/main</sources.main>
+        <sources.resource>resources</sources.resource>
+        <sources.resource.exclude>noexport</sources.resource.exclude>
+
+        <build.jar>true</build.jar>
+        <build.war>false</build.war>
+        <build.goal>install</build.goal>
+        <build.include.dependencys>true</build.include.dependencys>
+    </properties>
+
+    <dependencies>
+    </dependencies>
+
+
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+    <!--  !!!DO NOT EDIT BELLOW!!!  -->
+
+    <!--Basic maven stuff-->
+    <groupId>${app.group}</groupId>
+    <artifactId>${app.artifact}</artifactId>
+    <version>${app.version}</version>
+    <name>${app.name}</name>
+
+    <profiles>
+
+
+        <profile>
+            <id>Jar With Dependencies</id>
+            <activation>
+                <property>
+                    <name>build.include.dependencys</name>
+                    <value>true</value>
+                </property>
+            </activation>
+
+            <build>
+                <plugins>
+                    <!-- Maven Assembly Plugin (JAR with dependencies) -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>3.1.1</version>
+                        <configuration>
+
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+
+                            <archive>
+                                <manifest>
+                                    <mainClass>${build.starter}</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+
+                        <executions>
+                            <execution>
+                                <id>make-assembly</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>Jar Build Profile</id>
+            <!--Use when property is set-->
+            <activation>
+                <property>
+                    <name>build.jar</name>
+                    <value>true</value>
+                </property>
+            </activation>
+
+            <!--Custom JAR stuff-->
+            <!-- Jar Export -->
+            <build>
+                <plugins>
+                    <!--Maven JAR Pluggin-->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <version>3.1.2</version>
+                        <configuration>
+                            <finalName>${build.starter}</finalName>
+                            <archive>
+                                <manifest>
+                                    <addClasspath>true</addClasspath>
+                                    <mainClass>${build.starter}</mainClass>
+                                    <classpathPrefix>lib/</classpathPrefix>
+                                    <classpathPrefix>dependency-jars/</classpathPrefix>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </plugin>
+
+                    <!-- Run after (exec:java) -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.6.0</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <executable>maven</executable>
+                            <mainClass>${build.starter}</mainClass>
+                        </configuration>
+                    </plugin>
+
+
+                </plugins>
+            </build>
+
+
+        </profile>
+
+        <profile>
+            <id>WAR Build Profile</id>
+            <!--Use when property is set-->
+            <activation>
+                <property>
+                    <name>build.war</name>
+                    <value>true</value>
+                </property>
+            </activation>
+
+            <!--Custom WAR stuff-->
+
+            <build>
+
+                <plugins>
+                    <!-- Dependency Handling -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>2.5.1</version>
+                        <executions>
+                            <execution>
+                                <id>copy-dependencies</id>
+                                <phase>war</phase>
+                                <goals>
+                                    <goal>copy-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <includeScope>compile</includeScope>
+                                    <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!--WAR Build-->
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.4</version>
+                        <configuration>
+                            <includeEmptyDirs>true</includeEmptyDirs>
+                            <webResources>
+                                <resource>
+                                    <directory>lib</directory>
+                                    <targetPath>WEB-INF</targetPath>
+                                    <includes>
+                                        <include>**/*.xml</include>
+                                        <include>**/log4j.properties</include>
+                                    </includes>
+                                </resource>
+                                <resource>
+                                    <directory>lib</directory>
+                                    <targetPath>WEB_INF/lib</targetPath>
+                                    <includes>
+                                        <include>**/*.jar</include>
+                                    </includes>
+                                </resource>
+                            </webResources>
+                            <webXml>${project.basedir}/WEB-INF/web.xml</webXml>
+                        </configuration>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+
+    <build>
+        <defaultGoal>${build.goal}</defaultGoal>
+        <finalName>${app.name}</finalName>
+        <plugins>
+            <!-- Eclipse Support -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                </configuration>
+            </plugin>
+
+            <!-- Sources Adding -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.12</version>
+                <executions>
+                    <execution>
+                        <id>add-test-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${sources.test}</source>
+                                <source>${sources.test}/*</source>
+                                <source>${sources.test}/**</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${sources.main}</source>
+                                <source>${sources.main}/*</source>
+                                <source>${sources.main}/**</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>src/${sources.resource}</directory>
+                                    <targetPath>${sources.resource}</targetPath>
+                                    <excludes>
+                                        <exclude>**/${sources.resource.exclude}/**</exclude>
+                                    </excludes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Test on build -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.1</version>
+            </plugin>
+
+
+
+            <!-- Compiler -->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+
+
+
+        </plugins>
+    </build>
+
+
+
+</project>
