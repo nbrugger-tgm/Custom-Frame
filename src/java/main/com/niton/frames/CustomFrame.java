@@ -80,6 +80,22 @@ public class CustomFrame extends JFrame {
 				Image def = new ImageIcon(iconURL).getImage();
 				imgs.add(def);
 			}
+			
+			iconURL = getClass().getResource("/resources/iconx" + i + ".png");
+			if (iconURL == null)
+				System.err.println("The " + i + "x" + i + " default icon was not found");
+			else {
+				Image def = new ImageIcon(iconURL).getImage();
+				imgs.add(def);
+			}
+			
+			iconURL = getClass().getResource("iconx" + i + ".png");
+			if (iconURL == null)
+				System.err.println("The " + i + "x" + i + " default icon was not found");
+			else {
+				Image def = new ImageIcon(iconURL).getImage();
+				imgs.add(def);
+			}
 		}
 		setIconImages(imgs);
 	}
